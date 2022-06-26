@@ -24,9 +24,9 @@ class HomeController extends GetxController {
 
   Future<FruitsResponse?> fetchFruitsData() async {
     logger.d("FETCHING FRUITS DATA");
-    var request = FruitsRequest(
-            data: Data(imageReferences: true, referenceId: "1650165235"))
-        .toJson();
+    var request =
+        FruitsRequest(data: Data(imageReferences: true, referenceId: ""))
+            .toJson();
 
     try {
       isLoading(true);
@@ -41,10 +41,13 @@ class HomeController extends GetxController {
       }
     } catch (err) {
       isError(true);
+      logger.d("isError => $isError");
       throw Exception(err);
     } finally {
       isLoading(false);
     }
+
+    
     return fruitsResponse;
   }
 
