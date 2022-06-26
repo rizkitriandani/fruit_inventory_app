@@ -12,7 +12,6 @@ class HomeController extends GetxController {
   RxBool isError = false.obs;
   RxBool isShowingImage = false.obs;
   FruitsResponse? fruitsResponse;
-  // String? selectedImage;
   RxString selectedImage = "".obs;
 
   @override
@@ -49,5 +48,31 @@ class HomeController extends GetxController {
     return fruitsResponse;
   }
 
-  void setImage() {}
+  void findMostDuplicates() {
+    var map = {};
+
+    for (var x in fruitsResponse!.fruits!) {
+      map[x.name] = !map.containsKey(x.name) ? (1) : (map[x.name] + 1);
+    }
+
+    logger.d(map);
+
+    var total = 0;
+    var mostFruit = "";
+
+    map.forEach((k, v) {
+      if (v > total) {
+        total = v;
+        mostFruit = k;
+      }
+    });
+
+    logger.d(mostFruit);
+
+    Get.defaultDialog(
+      title: "Most quantities fruit",
+      middleText: "$mostFruit total is $total",
+      textCancel: "Close",
+    );
+  }
 }

@@ -34,7 +34,7 @@ class HomeView extends GetView<HomeController> {
                     ? const LoadingView()
                     : ListView.separated(
                         itemCount:
-                            controller.fruitsResponse!.fruits!.length ?? 0,
+                            controller.fruitsResponse?.fruits?.length  ?? 0,
                         itemBuilder: (context, index) {
                           return ListTile(
                             onTap: () {
@@ -71,7 +71,8 @@ class HomeView extends GetView<HomeController> {
                                   controller.selectedImage("");
                               }
 
-                              logger.d("selectedImage => ${controller.selectedImage.value}");
+                              logger.d(
+                                  "selectedImage => ${controller.selectedImage.value}");
                               controller.isShowingImage(true);
                             },
                             title: Text(controller
@@ -86,6 +87,9 @@ class HomeView extends GetView<HomeController> {
                       ),
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             Obx(() => controller.isShowingImage.value
                 ? controller.selectedImage.value.isNotEmpty
                     ? Image.network(
@@ -94,8 +98,11 @@ class HomeView extends GetView<HomeController> {
                       )
                     : const Text("Image is not available")
                 : const Text("No Fruit is selected")),
+            const SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () => controller.findMostDuplicates(),
                 child: const Text("Fruit with the most quantities"))
           ],
         ),
